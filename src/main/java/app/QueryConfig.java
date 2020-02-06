@@ -1,62 +1,60 @@
 package app;
 
-public class QueryConfig {
+import parser.ArgumentParser;
+
+import java.util.Optional;
+
+public class QueryConfig implements QueryConfiguration {
   private int timeout = 5;
   private int maxRetries = 3;
   private int dnsPort = 53;
   private QueryType type = QueryType.A;
-  private String domain = "www.mcgill.ca";
+  private String domain;
+  private String dnsIP;
 
   private QueryConfig() {
   }
-  public static QueryConfig parseArgs(String[] args) {
-    final QueryConfig queryConfig = new QueryConfig();
-//    queryConfig.set
 
-    return queryConfig;
+  static QueryConfig parseArgs(String[] args) throws BadCommandLineArgument {
+    final QueryConfig qc = new QueryConfig();
+
+    Optional<String> dnsIP = ArgumentParser.parseDnsIP(args);
+        qc.setDnsIP(dnsIP
+          .orElseThrow(() -> new BadCommandLineArgument("Missing DNS IP")));
+    return qc;
   }
 
+  @Override
   public int timeout() {
     return timeout;
   }
 
+  @Override
   public int maxRetries() {
     return maxRetries;
   }
 
+  @Override
   public int dnsPort() {
     return dnsPort;
   }
 
+  @Override
   public QueryType type() {
     return type;
   }
 
-  public int[] dnsIP() {
-    return new int[] {123, 206, 85, 18};
+  @Override
+  public String dnsIP() {
+    return this.dnsIP;
   }
 
+  @Override
   public String domain() {
     return domain;
   }
 
-  private void setTimeout(int timeout) {
-    this.timeout = timeout;
-  }
-
-  private void setMaxRetries(int maxRetries) {
-    this.maxRetries = maxRetries;
-  }
-
-  private void setDnsPort(int dnsPort) {
-    this.dnsPort = dnsPort;
-  }
-
-  private void setType(QueryType type) {
-    this.type = type;
-  }
-
-  private void setDomain(String domain) {
-    this.domain = domain;
+  private void setDnsIP(String dnsIP) {
+    this.dnsIP = dnsIP;
   }
 }
