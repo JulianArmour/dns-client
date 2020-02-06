@@ -1,6 +1,10 @@
 package app;
 
-public class QueryConfig {
+import parser.ArgumentParser;
+
+import java.util.Optional;
+
+public class QueryConfig implements QueryConfiguration {
   private int timeout = 5;
   private static int maxRetries = 3;
   private static int dnsPort = 53;
@@ -10,7 +14,6 @@ public class QueryConfig {
 
   public  QueryConfig parseArgs(String[] args) {
     final QueryConfig queryConfig = new QueryConfig();
-//    queryConfig.set
     
     for (int i = 0; i < args.length; i++) {
     	
@@ -55,53 +58,43 @@ public class QueryConfig {
     return queryConfig;
   }
 
+  @Override
   public int timeout() {
     return timeout;
   }
 
+  @Override
   public int maxRetries() {
     return maxRetries;
   }
 
+  @Override
   public int dnsPort() {
     return dnsPort;
   }
 
+  @Override
   public QueryType type() {
     return type;
   }
 
-  public int[] dnsIP() {
-    return new int[] {123, 206, 85, 18};
+  @Override
+  public String dnsIP() {
+    return this.dnsIP;
   }
 
+  @Override
   public String domain() {
     return domain;
   }
 
-  private void setTimeout(int timeout) {
-    this.timeout = timeout;
-  }
-
-  private void setMaxRetries(int maxRetries) {
-    this.maxRetries = maxRetries;
-  }
-
-  private void setDnsPort(int dnsPort) {
-    this.dnsPort = dnsPort;
-  }
-
-  private void setType(QueryType type) {
-    this.type = type;
-  }
-
-  private void setDomain(String domain) {
-    this.domain = domain;
+  private void setDnsIP(String dnsIP) {
+    this.dnsIP = dnsIP;
   }
   
   private void setIP(String ip) {
 	  	String [] temp = ip.split("\\.");
-	  	int [] tempIP  = new int [4];
+	  	int [] tempIP  = new int[4];
 	  	System.out.println(temp.length);
 	   for (int i = 0; i < temp.length; i++) {
 		   tempIP[i] = Integer.parseInt(temp[i]);
