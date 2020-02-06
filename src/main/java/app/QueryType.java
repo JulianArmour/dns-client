@@ -1,5 +1,5 @@
 package app;
 
 public enum QueryType {
-  A
+  A, MX, NS
 }
