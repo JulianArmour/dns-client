@@ -1,5 +1,7 @@
 package packet;
 
-public interface ServerPacketParser {
+import java.nio.ByteBuffer;
 
+public interface ServerPacketParser {
+  ServerResponse parseServerResponse(ByteBuffer response);
 }
