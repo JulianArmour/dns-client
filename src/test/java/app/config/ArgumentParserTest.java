@@ -1,13 +1,10 @@
-package parser;
+package app.config;
 
-import app.config.ArgumentParser;
-import app.config.QueryConfig;
-import app.config.QueryType;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestArgumentParser {
+public class ArgumentParserTest {
 
   @Test
   public void parseArgs_NoOptions_DefaultQueryConfig() {
