@@ -1,6 +1,6 @@
 package packet;
 
-import app.QueryConfiguration;
+import app.config.QueryConfiguration;
 
 import java.nio.ByteBuffer;
 

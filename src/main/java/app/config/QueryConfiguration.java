@@ -1,4 +1,4 @@
-package app;
+package app.config;
 
 public interface QueryConfiguration {
 

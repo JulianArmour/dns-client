@@ -1,26 +1,23 @@
 package parser;
 
+import app.config.QueryConfig;
+import app.config.QueryType;
 import org.junit.Test;
-import parser.ArgumentParser;
 
-import java.util.Optional;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class TestArgumentParser {
 
   @Test
-  public void parseDnsIP_EmptyIPString_EmptyOption() {
-    String[] programArgs = new String[]{};
-    Optional<String> dnsIP = ArgumentParser.parseDnsIP(programArgs);
-    assertFalse(dnsIP.isPresent());
-  }
-  @Test
-  public void parseDnsIP_1IPString_1IPintArray() {
-    String[] programArgs = new String[]{"@1.1.1.1"};
-    Optional<String> dnsIP = ArgumentParser.parseDnsIP(programArgs);
-    assertTrue(dnsIP.isPresent());
-    assertEquals("1.1.1.1", dnsIP.get());
-  }
+  public void parseArgs_NoOptions_DefaultQueryConfig() {
+    String[] args = new String[]{"@111.111.111.111", "www.mcgill.ca"};
+    QueryConfig qc = ArgumentParser.parseArgs(args);
 
+    assertEquals(5, qc.timeout());
+    assertEquals(3, qc.maxRetries());
+    assertEquals(53, qc.dnsPort());
+    assertEquals(QueryType.A, qc.type());
+    assertEquals("111.111.111.111", qc.dnsIP());
+    assertEquals("www.mcgill.ca", qc.domain());
+  }
 }
