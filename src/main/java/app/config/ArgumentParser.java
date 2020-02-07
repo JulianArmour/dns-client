@@ -1,4 +1,4 @@
-package parser;
+package app.config;
 
 import app.config.QueryConfig;
 import app.config.QueryType;

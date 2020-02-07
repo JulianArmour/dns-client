@@ -4,7 +4,7 @@ import app.config.QueryConfiguration;
 
 import java.nio.ByteBuffer;
 
-public interface PacketBuilder {
+public interface ClientPacketBuilder {
   /**
    * Builds a DNS packet.
    * @param queryConfiguration A queryConfiguration.

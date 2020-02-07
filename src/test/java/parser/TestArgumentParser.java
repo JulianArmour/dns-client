@@ -1,5 +1,6 @@
 package parser;
 
+import app.config.ArgumentParser;
 import app.config.QueryConfig;
 import app.config.QueryType;
 import org.junit.Test;
