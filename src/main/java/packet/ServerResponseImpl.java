@@ -1,5 +1,8 @@
 package packet;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class ServerResponseImpl implements ServerResponse {
   private int packetID;
   private PacketType QR;
@@ -14,6 +17,7 @@ public class ServerResponseImpl implements ServerResponse {
   private int nameServerCount = -1;
   private int additionalCount = -1;
   private QuestionSection questionSection;
+  private List<ResourceRecord> answers = new LinkedList<>();
 
   @Override
   public int ID() {
@@ -80,6 +84,11 @@ public class ServerResponseImpl implements ServerResponse {
     return questionSection;
   }
 
+  @Override
+  public ResourceRecord getAnswers(int i) {
+    return answers.get(i);
+  }
+
   public void setPacketID(int packetID) {
     this.packetID = packetID;
   }
@@ -130,5 +139,9 @@ public class ServerResponseImpl implements ServerResponse {
 
   public void setQuestionSection(QuestionSection questionSection) {
     this.questionSection = questionSection;
+  }
+
+  public void addAnswer(ResourceRecord answer) {
+    answers.add(answer);
   }
 }

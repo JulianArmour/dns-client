@@ -69,4 +69,6 @@ public interface ServerResponse {
    * @return the question section.
    */
   QuestionSection getQuestionSection();
+
+  ResourceRecord getAnswers(int i);
 }

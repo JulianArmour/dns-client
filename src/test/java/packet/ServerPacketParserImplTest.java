@@ -1,5 +1,6 @@
 package packet;
 
+import app.config.QueryType;
 import org.junit.Test;
 
 import java.nio.ByteBuffer;
@@ -33,10 +34,22 @@ public class ServerPacketParserImplTest {
     assertEquals(0, r.rCode());
     //QDCOUNT
     assertEquals(1, r.questionCount());
+    //ARCOUNT
     assertEquals(1, r.answerCount());
+    //NSCOUNT
     assertEquals(0, r.nameServerCount());
+    //ARCOUNT
     assertEquals(0, r.additionalCount());
+    //QNAME
     assertEquals("www.mcgill.ca", r.getQuestionSection().getqName());
+    //QTYPE
+    assertEquals(QueryType.A, r.getQuestionSection().getqType());
+    //QCLASS
+    assertEquals(1, r.getQuestionSection().getqClass());
+    //answer NAME
+    assertEquals("www.mcgill.ca", r.getAnswers(0).getName());
+    //answer TYPE
+    assertEquals(QueryType.A, r.getAnswers(0).getType());
   }
 
   //src: https://stackoverflow.com/questions/140131/convert-a-string-representation-of-a-hex-dump-to-a-byte-array-using-java

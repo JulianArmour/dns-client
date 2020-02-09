@@ -29,8 +29,19 @@ public class ServerPacketParserImpl implements ServerPacketParser {
     serverResponse.setAdditionalCount(response.getChar());
     //parse question
     serverResponse.setQuestionSection(parseQuestionSection(response));
+    //parse answers
+    for (int i = 0; i < serverResponse.answerCount(); i++) {
+      serverResponse.addAnswer(parseResourceRecord(response));
+    }
 
     return serverResponse;
+  }
+
+  private ResourceRecord parseResourceRecord(ByteBuffer response) {
+    ResourceRecord rr = new ResourceRecord();
+    rr.setName(parseQName(response));
+    rr.setType(parseQType(response));
+    return rr;
   }
 
   private QuestionSection parseQuestionSection(ByteBuffer response) {
@@ -49,6 +60,7 @@ public class ServerPacketParserImpl implements ServerPacketParser {
     switch (response.getChar()) {
       case 0x0001 : return QueryType.A;
       case 0x0002 : return QueryType.NS;
+      case 0x0005 : return QueryType.CNAME;
       case 0x000f : return QueryType.MX;
       default: return null;//TODO throw Exception
     }
@@ -58,7 +70,13 @@ public class ServerPacketParserImpl implements ServerPacketParser {
     StringBuilder sb = new StringBuilder();
     int zeroOctetOrPointer = parseLabels(response, sb);
     if (isPointer(zeroOctetOrPointer)) {
-      parsePointer(response, sb, zeroOctetOrPointer);
+      //we only have the 1st octet of the pointer, so add the next octet to
+      // get the full pointer. parseLabel's post-condition has the
+      // ByteBuffer's position on the 2nd pointer octet.
+      //0xff is to make labelLen take the unsigned value. since Java doesn't
+      // have unsigned ints.
+      int completePointer = (zeroOctetOrPointer<<8) + response.get()&0xff;
+      parsePointer(response, sb, completePointer);
     }
     sb.deleteCharAt(sb.length() - 1);//remove trailing '.'
     return sb.toString();
@@ -66,33 +84,37 @@ public class ServerPacketParserImpl implements ServerPacketParser {
 
   /**
    * Parses a sequence of labels pointed by a pointer.
-   * PostCondition:
+   * Post-Condition:
    * The response ByteBuffer's position will be on the octet
    * <b>directly after</b> the pointer.
-   * @param response the ByteBuffer with position on the length
+   * @param response the ByteBuffer with position on the octet directly after
+   *                 the pointer.
    * @param dest the destination of the parsed output.
    * @param pointer the pointer.
    */
   private void parsePointer(ByteBuffer response, StringBuilder dest,
                             int pointer) {
-    response.mark();
+    int savedPosition = response.position();
     response.position(pointer);
     parseLabels(response, dest);
+    response.position(savedPosition);
   }
 
   /**
    * Parses labels until it finds the zero octet or a pointer.
-   * PostCondition:
+   * Post-Condition:
    * The response ByteBuffer's position will be on the octet
-   * <b>directly after</b> the zero octet or pointer.
+   * <b>directly after</b> the zero octet or pointer's 1st octet.
    * @param response the ByteBuffer with position on the length octet.
    * @param dest the destination of the parsed output.
-   * @return either the zero octet or a pointer found at the end of the label
-   * sequence.
+   * @return either the zero octet or a pointer's first octet found at the end
+   * of the label sequence.
    */
   private int parseLabels(ByteBuffer response, StringBuilder dest) {
     int labelLen;
-    while ((labelLen = response.get()) != 0 && !isPointer(labelLen)) {
+    //0xff is to make labelLen take the unsigned value. since Java doesn't
+    // have unsigned ints.
+    while ((labelLen = (response.get()&0xff)) != 0 && !isPointer(labelLen)) {
       for (int i = 0; i < labelLen; i++) {
         dest.append((char)response.get());
       }
@@ -102,7 +124,7 @@ public class ServerPacketParserImpl implements ServerPacketParser {
   }
 
   private boolean isPointer(int labelLenOctet) {
-    return (labelLenOctet >> 14) == 0b11;
+    return labelLenOctet == 0b11000000;
   }
 
   private int parseRCode(char qRtoRCode) {

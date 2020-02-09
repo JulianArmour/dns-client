@@ -3,5 +3,6 @@ package app.config;
 public enum QueryType {
   A,
   MX,
-  NS
+  NS,
+  CNAME
 }
