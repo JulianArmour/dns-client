@@ -42,7 +42,12 @@ public class ServerPacketParserImpl implements ServerPacketParser {
     rr.setName(parseQName(response));
     rr.setType(parseQType(response));
     rr.setClazz(parseQClass(response));
+    rr.setTTL(parseTTL(response));
     return rr;
+  }
+
+  private long parseTTL(ByteBuffer response) {
+    return Integer.toUnsignedLong(response.getInt());
   }
 
   private QuestionSection parseQuestionSection(ByteBuffer response) {
@@ -74,9 +79,9 @@ public class ServerPacketParserImpl implements ServerPacketParser {
       //we only have the 1st octet of the pointer, so add the next octet to
       // get the full pointer. parseLabel's post-condition has the
       // ByteBuffer's position on the 2nd pointer octet.
-      //0xff is to make labelLen take the unsigned value. since Java doesn't
-      // have unsigned ints.
-      int completePointer = (zeroOctetOrPointer<<8) + response.get()&0xff;
+      //0x3f is to remove the 2 most significant bits.
+      int completePointer = (zeroOctetOrPointer << 8) & 0x3f
+                          | Byte.toUnsignedInt(response.get());
       parsePointer(response, sb, completePointer);
     }
     sb.deleteCharAt(sb.length() - 1);//remove trailing '.'
@@ -113,9 +118,8 @@ public class ServerPacketParserImpl implements ServerPacketParser {
    */
   private int parseLabels(ByteBuffer response, StringBuilder dest) {
     int labelLen;
-    //0xff is to make labelLen take the unsigned value. since Java doesn't
-    // have unsigned ints.
-    while ((labelLen = (response.get()&0xff)) != 0 && !isPointer(labelLen)) {
+    while ((labelLen = Byte.toUnsignedInt(response.get())) != 0
+        && !isPointer(labelLen)) {
       for (int i = 0; i < labelLen; i++) {
         dest.append((char)response.get());
       }
