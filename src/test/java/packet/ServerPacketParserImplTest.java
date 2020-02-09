@@ -54,6 +54,8 @@ public class ServerPacketParserImplTest {
     assertEquals(1, r.getAnswers(0).getClazz());
     //answer TTL
     assertEquals(672, r.getAnswers(0).getTTL());
+    //answer RDLENGTH
+    assertEquals(4, r.getAnswers(0).getRDLength());
   }
 
   //src: https://stackoverflow.com/questions/140131/convert-a-string-representation-of-a-hex-dump-to-a-byte-array-using-java

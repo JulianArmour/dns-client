@@ -43,6 +43,7 @@ public class ServerPacketParserImpl implements ServerPacketParser {
     rr.setType(parseQType(response));
     rr.setClazz(parseQClass(response));
     rr.setTTL(parseTTL(response));
+    rr.setRDLength(response.getChar());
     return rr;
   }
 
