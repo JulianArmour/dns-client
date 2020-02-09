@@ -85,8 +85,8 @@ public class ServerResponseImpl implements ServerResponse {
   }
 
   @Override
-  public ResourceRecord getAnswers(int i) {
-    return answers.get(i);
+  public ResourceRecord getAnswer(int answerNumber) {
+    return answers.get(answerNumber);
   }
 
   public void setPacketID(int packetID) {

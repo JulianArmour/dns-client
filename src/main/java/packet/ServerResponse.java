@@ -70,5 +70,9 @@ public interface ServerResponse {
    */
   QuestionSection getQuestionSection();
 
-  ResourceRecord getAnswers(int i);
+  /**
+   * @param answerNumber a number within [0,ARCOUNT)
+   * @return the (answerNumber+1)'th answer
+   */
+  ResourceRecord getAnswer(int answerNumber);
 }

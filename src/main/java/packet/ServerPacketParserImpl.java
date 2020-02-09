@@ -44,7 +44,34 @@ public class ServerPacketParserImpl implements ServerPacketParser {
     rr.setClazz(parseQClass(response));
     rr.setTTL(parseTTL(response));
     rr.setRDLength(response.getChar());
+    parseRData(rr, response);
     return rr;
+  }
+
+  private void parseRData(ResourceRecord rr, ByteBuffer response) {
+    switch (rr.getType()) {
+      case A:
+        rr.setRData(parseRDataAType(response));
+        break;
+      case NS:
+      case CNAME:
+        rr.setRData(parseQName(response));
+        break;
+      case MX:
+        rr.setPreference(response.getChar());
+        rr.setRData(parseQName(response));
+        break;
+    }
+  }
+
+  private String parseRDataAType(ByteBuffer response) {
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < 3; i++) {
+      sb.append(Byte.toUnsignedInt(response.get()));
+      sb.append('.');
+    }
+    sb.append(Byte.toUnsignedInt(response.get()));
+    return sb.toString();
   }
 
   private long parseTTL(ByteBuffer response) {
