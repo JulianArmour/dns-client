@@ -18,6 +18,8 @@ public class ServerResponseImpl implements ServerResponse {
   private int additionalCount = -1;
   private QuestionSection questionSection;
   private List<ResourceRecord> answers = new LinkedList<>();
+  private List<ResourceRecord> authorities = new LinkedList<>();
+  private List<ResourceRecord> additionals = new LinkedList<>();
 
   @Override
   public int ID() {
@@ -89,6 +91,16 @@ public class ServerResponseImpl implements ServerResponse {
     return answers.get(answerNumber);
   }
 
+  @Override
+  public ResourceRecord getAuthority(int authorityNumber) {
+    return authorities.get(authorityNumber);
+  }
+
+  @Override
+  public ResourceRecord getAdditional(int additionalNumber) {
+    return additionals.get(additionalNumber);
+  }
+
   public void setPacketID(int packetID) {
     this.packetID = packetID;
   }
@@ -143,5 +155,13 @@ public class ServerResponseImpl implements ServerResponse {
 
   public void addAnswer(ResourceRecord answer) {
     answers.add(answer);
+  }
+
+  public void addAuthority(ResourceRecord authority) {
+    authorities.add(authority);
+  }
+
+  public void addAdditionals(ResourceRecord additional) {
+    additionals.add(additional);
   }
 }

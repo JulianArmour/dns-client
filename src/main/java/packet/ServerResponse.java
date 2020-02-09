@@ -72,7 +72,19 @@ public interface ServerResponse {
 
   /**
    * @param answerNumber a number within [0,ARCOUNT)
-   * @return the (answerNumber+1)'th answer
+   * @return the (answerNumber+1)'th answer resource record.
    */
   ResourceRecord getAnswer(int answerNumber);
+
+  /**
+   * @param authorityNumber a number within [0, NSCOUNT)
+   * @return the (authorityNumber+1)'th authority resource record.
+   */
+  ResourceRecord getAuthority(int authorityNumber);
+
+  /**
+   * @param additionalNumber a number within [0, ARCOUNT)
+   * @return the (additionalNumber+1)'th additional resource record.
+   */
+  ResourceRecord getAdditional(int additionalNumber);
 }

@@ -33,6 +33,14 @@ public class ServerPacketParserImpl implements ServerPacketParser {
     for (int i = 0; i < serverResponse.answerCount(); i++) {
       serverResponse.addAnswer(parseResourceRecord(response));
     }
+    //parse Authorities
+    for (int i = 0; i < serverResponse.nameServerCount(); i++) {
+      serverResponse.addAuthority(parseResourceRecord(response));
+    }
+    //parse Additionals
+    for (int i = 0; i < serverResponse.additionalCount(); i++) {
+      serverResponse.addAuthority(parseResourceRecord(response));
+    }
 
     return serverResponse;
   }
