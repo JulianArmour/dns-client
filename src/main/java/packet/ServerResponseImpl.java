@@ -1,7 +1,5 @@
 package packet;
 
-import app.config.QueryType;
-
 public class ServerResponseImpl implements ServerResponse {
   private int packetID;
   private PacketType QR;
@@ -11,6 +9,11 @@ public class ServerResponseImpl implements ServerResponse {
   private boolean isRecursionDesired;
   private boolean isRecursionAvailable;
   private int rCode = -1;
+  private int questionCount;
+  private int answerCount;
+  private int nameServerCount = -1;
+  private int additionalCount = -1;
+  private QuestionSection questionSection;
 
   @Override
   public int ID() {
@@ -52,6 +55,31 @@ public class ServerResponseImpl implements ServerResponse {
     return rCode;
   }
 
+  @Override
+  public int questionCount() {
+    return questionCount;
+  }
+
+  @Override
+  public int answerCount() {
+    return answerCount;
+  }
+
+  @Override
+  public int nameServerCount() {
+    return nameServerCount;
+  }
+
+  @Override
+  public int additionalCount() {
+    return additionalCount;
+  }
+
+  @Override
+  public QuestionSection getQuestionSection() {
+    return questionSection;
+  }
+
   public void setPacketID(int packetID) {
     this.packetID = packetID;
   }
@@ -82,5 +110,25 @@ public class ServerResponseImpl implements ServerResponse {
 
   public void setRCode(int rCode) {
     this.rCode = rCode;
+  }
+
+  public void setQuestionCount(int questionCount) {
+    this.questionCount = questionCount;
+  }
+
+  public void setAnswerCount(int answerCount) {
+    this.answerCount = answerCount;
+  }
+
+  public void setNameServerCount(int nameServerCount) {
+    this.nameServerCount = nameServerCount;
+  }
+
+  public void setAdditionalCount(int additionalCount) {
+    this.additionalCount = additionalCount;
+  }
+
+  public void setQuestionSection(QuestionSection questionSection) {
+    this.questionSection = questionSection;
   }
 }

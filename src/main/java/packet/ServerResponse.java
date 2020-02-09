@@ -44,4 +44,29 @@ public interface ServerResponse {
    * @return the RCODE field.
    */
   int rCode();
+
+  /**
+   * @return the QDCOUNT field.
+   */
+  int questionCount();
+
+  /**
+   *  @return the ANCOUNT field.
+   */
+  int answerCount();
+
+  /**
+   * @return the NSCOUNT field.
+   */
+  int nameServerCount();
+
+  /**
+   * @return the ARCOUNT field.
+   */
+  int additionalCount();
+
+  /**
+   * @return the question section.
+   */
+  QuestionSection getQuestionSection();
 }
