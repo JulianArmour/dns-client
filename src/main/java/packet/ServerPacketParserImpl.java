@@ -41,6 +41,7 @@ public class ServerPacketParserImpl implements ServerPacketParser {
     ResourceRecord rr = new ResourceRecord();
     rr.setName(parseQName(response));
     rr.setType(parseQType(response));
+    rr.setClazz(parseQClass(response));
     return rr;
   }
 

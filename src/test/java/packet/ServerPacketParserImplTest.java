@@ -50,6 +50,8 @@ public class ServerPacketParserImplTest {
     assertEquals("www.mcgill.ca", r.getAnswers(0).getName());
     //answer TYPE
     assertEquals(QueryType.A, r.getAnswers(0).getType());
+    //answer CLASS
+    assertEquals(1, r.getAnswers(0).getClazz());
   }
 
   //src: https://stackoverflow.com/questions/140131/convert-a-string-representation-of-a-hex-dump-to-a-byte-array-using-java
