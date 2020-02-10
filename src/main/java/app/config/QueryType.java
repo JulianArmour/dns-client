@@ -4,5 +4,6 @@ public enum QueryType {
   A,
   MX,
   NS,
-  CNAME
+  CNAME,
+  IGNORE
 }

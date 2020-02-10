@@ -60,6 +60,8 @@ public class ServerPacketParserImplTest {
     assertEquals("132.216.177.160", r.getAnswer(0).getRData());
   }
 
+
+
   //src: https://stackoverflow.com/questions/140131/convert-a-string-representation-of-a-hex-dump-to-a-byte-array-using-java
   private static byte[] hexStringToByteArray(String s) {
     int len = s.length();

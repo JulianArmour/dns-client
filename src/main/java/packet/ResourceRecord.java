@@ -51,6 +51,11 @@ public class ResourceRecord {
     this.rdLength = rdLength;
   }
 
+  /**
+   * @return the RDATA field. Or, if this resource record's type is MX, then
+   * the this returns the EXCHANGE field. PREFERENCE can be accessed via
+   * getPreference().
+   */
   public String getRData() {
     return rData;
   }

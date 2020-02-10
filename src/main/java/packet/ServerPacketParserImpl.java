@@ -69,9 +69,14 @@ public class ServerPacketParserImpl implements ServerPacketParser {
         rr.setPreference(response.getChar());
         rr.setRData(parseQName(response));
         break;
+      case IGNORE:
+        //skips parsing
+        response.position(response.position() + rr.getRDLength());
+        break;
     }
   }
 
+  /*Parses an ipv4 address in the RDATA field*/
   private String parseRDataAType(ByteBuffer response) {
     StringBuilder sb = new StringBuilder();
     for (int i = 0; i < 3; i++) {
@@ -104,7 +109,7 @@ public class ServerPacketParserImpl implements ServerPacketParser {
       case 0x0002 : return QueryType.NS;
       case 0x0005 : return QueryType.CNAME;
       case 0x000f : return QueryType.MX;
-      default: return null;//TODO throw Exception
+      default: return QueryType.IGNORE;
     }
   }
 
@@ -116,7 +121,7 @@ public class ServerPacketParserImpl implements ServerPacketParser {
       // get the full pointer. parseLabel's post-condition has the
       // ByteBuffer's position on the 2nd pointer octet.
       //0x3f is to remove the 2 most significant bits.
-      int completePointer = (zeroOctetOrPointer << 8) & 0x3f
+      int completePointer = ((zeroOctetOrPointer & 0x3f) << 8)
                           | Byte.toUnsignedInt(response.get());
       parsePointer(response, sb, completePointer);
     }
