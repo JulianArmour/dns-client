@@ -106,16 +106,62 @@ public class ServerPacketParserImplTest {
 
     //answer 1
     assertAnswer(r,0, "facebook.com", QueryType.NS,
-            145164, 7,"d.ns.facebook.com");
+        145164, 7,"d.ns.facebook.com");
     //answer 2
     assertAnswer(r,1, "facebook.com", QueryType.NS,
         145164, 4,"c.ns.facebook.com");
+    //answer 3
+    assertAnswer(r,2, "facebook.com", QueryType.NS,
+        145164, 4,"a.ns.facebook.com");
+    //answer 4
+    assertAnswer(r,3, "facebook.com", QueryType.NS,
+        145164, 4,"b.ns.facebook.com");
+
+    //additional 1
+    assertAdditional(r, 0, "a.ns.facebook.com", QueryType.A,
+        147325,4, "69.171.239.12");
+    //additional 2
+    assertAdditional(r, 1, "b.ns.facebook.com", QueryType.A,
+        147325,4, "69.171.255.12");
+    //additional 3
+    assertAdditional(r, 2, "c.ns.facebook.com", QueryType.A,
+        147325,4, "185.89.218.12");
+    //additional 4
+    assertAdditional(r, 3, "d.ns.facebook.com", QueryType.A,
+        147325,4, "185.89.219.12");
+    //additional 5
+    assertEquals(16, r.getAdditional(4).getRDLength());
+    assertEquals(QueryType.IGNORE, r.getAdditional(4).getType());
+    //additional 6
+    assertEquals(16, r.getAdditional(5).getRDLength());
+    assertEquals(QueryType.IGNORE, r.getAdditional(5).getType());
+    //additional 7
+    assertEquals(16, r.getAdditional(6).getRDLength());
+    assertEquals(QueryType.IGNORE, r.getAdditional(6).getType());
+    //additional 8
+    assertEquals(16, r.getAdditional(7).getRDLength());
+    assertEquals(QueryType.IGNORE, r.getAdditional(7).getType());
 
   }
 
+  private void assertAdditional(ServerResponse r, int additionalNumber, String name,
+                                QueryType type,int TTL, int dataLength, String data) {
+    //additional NAME
+    assertEquals(name, r.getAdditional(additionalNumber).getName());
+    //additional TYPE
+    assertEquals(type, r.getAdditional(additionalNumber).getType());
+    //additional CLASS
+    assertEquals(1, r.getAdditional(additionalNumber).getClazz());
+    //additional TTL
+    assertEquals(TTL, r.getAdditional(additionalNumber).getTTL());
+    //additional RDLENGTH
+    assertEquals(dataLength, r.getAdditional(additionalNumber).getRDLength());
+    //additional RDATA
+    assertEquals(data, r.getAdditional(additionalNumber).getRData());
+  }
+
   private void assertAnswer(ServerResponse r, int answerNumber, String name,
-                            QueryType type,
-                            int TTL, int dataLength, String data) {
+                            QueryType type,int TTL, int dataLength, String data) {
     //answer NAME
     assertEquals(name, r.getAnswer(answerNumber).getName());
     //answer TYPE

@@ -113,64 +113,50 @@ public class ServerPacketParserImpl implements ServerPacketParser {
     }
   }
 
+  /**
+   * This is a facade for parseLabels().
+   * @param response the packet with position on label-length/pointer octet
+   * @return the parsed domain name.
+   */
   private String parseQName(ByteBuffer response) {
     StringBuilder sb = new StringBuilder();
-    int zeroOctetOrPointer = parseLabels(response, sb);
-    if (isPointer(zeroOctetOrPointer)) {
-      //we only have the 1st octet of the pointer, so add the next octet to
-      // get the full pointer. parseLabel's post-condition has the
-      // ByteBuffer's position on the 2nd pointer octet.
-      //0x3f is to remove the 2 most significant bits.
-      int completePointer = ((zeroOctetOrPointer & 0x3f) << 8)
-                          | Byte.toUnsignedInt(response.get());
-      parsePointer(response, sb, completePointer);
-    }
+    parseLabels(response, sb);
     sb.deleteCharAt(sb.length() - 1);//remove trailing '.'
     return sb.toString();
   }
 
   /**
-   * Parses a sequence of labels pointed by a pointer.
+   * Parses labels of a domain name, handling pointers along the way.
    * Post-Condition:
-   * The response ByteBuffer's position will be on the octet
-   * <b>directly after</b> the pointer.
-   * @param response the ByteBuffer with position on the octet directly after
-   *                 the pointer.
-   * @param dest the destination of the parsed output.
-   * @param pointer the pointer.
-   */
-  private void parsePointer(ByteBuffer response, StringBuilder dest,
-                            int pointer) {
-    int savedPosition = response.position();
-    response.position(pointer);
-    parseLabels(response, dest);
-    response.position(savedPosition);
-  }
-
-  /**
-   * Parses labels until it finds the zero octet or a pointer.
-   * Post-Condition:
-   * The response ByteBuffer's position will be on the octet
-   * <b>directly after</b> the zero octet or pointer's 1st octet.
+   * The response ByteBuffer's position will be on the terminating octet
    * @param response the ByteBuffer with position on the length octet.
    * @param dest the destination of the parsed output.
-   * @return either the zero octet or a pointer's first octet found at the end
-   * of the label sequence.
    */
-  private int parseLabels(ByteBuffer response, StringBuilder dest) {
-    int labelLen;
-    while ((labelLen = Byte.toUnsignedInt(response.get())) != 0
-        && !isPointer(labelLen)) {
+  private void parseLabels(ByteBuffer response, StringBuilder dest) {
+    int labelLen = Byte.toUnsignedInt(response.get());
+    if (isPointer(labelLen)) {
+      int completePointer = ((labelLen & 0x3f) << 8)
+                            | Byte.toUnsignedInt(response.get());
+      int savedPosition = response.position();
+      response.position(completePointer);
+      parseLabels(response, dest);
+      response.position(savedPosition);
+    } else if (!isTerminatingOctet(labelLen)) {
       for (int i = 0; i < labelLen; i++) {
         dest.append((char)response.get());
       }
       dest.append('.');
+      parseLabels(response, dest);
     }
-    return labelLen;
+    //else, it's the terminating octet, simply return.
+  }
+
+  private boolean isTerminatingOctet(int labelLen) {
+    return labelLen == 0;
   }
 
   private boolean isPointer(int labelLenOctet) {
-    return labelLenOctet == 0b11000000;
+    return (labelLenOctet & 0b1100_0000) == 0b1100_0000;
   }
 
   private int parseRCode(char qRtoRCode) {
