@@ -39,7 +39,7 @@ public class ServerPacketParserImpl implements ServerPacketParser {
     }
     //parse Additionals
     for (int i = 0; i < serverResponse.additionalCount(); i++) {
-      serverResponse.addAuthority(parseResourceRecord(response));
+      serverResponse.addAdditional(parseResourceRecord(response));
     }
 
     return serverResponse;

@@ -161,7 +161,7 @@ public class ServerResponseImpl implements ServerResponse {
     authorities.add(authority);
   }
 
-  public void addAdditionals(ResourceRecord additional) {
+  public void addAdditional(ResourceRecord additional) {
     additionals.add(additional);
   }
 }
