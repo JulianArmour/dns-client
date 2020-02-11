@@ -6,42 +6,46 @@ import java.nio.ByteBuffer;
 
 public class ServerPacketParserImpl implements ServerPacketParser {
   @Override
-  public ServerResponse parseServerResponse(ByteBuffer response) {
+  public ServerResponse parseServerResponse(ByteBuffer response) throws MalformedPacketException {
     ServerResponseImpl serverResponse = new ServerResponseImpl();
-    //parse ID
-    serverResponse.setPacketID(response.getChar());
-    //parse QR to RCODE field
-    char qRtoRCode = response.getChar();
-    serverResponse.setQR(parseQR(qRtoRCode));
-    serverResponse.setOpcode(parseOpcode(qRtoRCode));
-    serverResponse.setAuthoritative(parseAA(qRtoRCode));
-    serverResponse.setTruncated(parseTR(qRtoRCode));
-    serverResponse.setRecursionDesired(parseRD(qRtoRCode));
-    serverResponse.setRecursionAvailable(parseRA(qRtoRCode));
-    serverResponse.setRCode(parseRCode(qRtoRCode));
-    //parse QDCOUNT
-    serverResponse.setQuestionCount(response.getChar());
-    //parse ANCOUNT
-    serverResponse.setAnswerCount(response.getChar());
-    //parse NSCOUNT
-    serverResponse.setNameServerCount(response.getChar());
-    //parse ARCOUNT
-    serverResponse.setAdditionalCount(response.getChar());
-    //parse question
-    serverResponse.setQuestionSection(parseQuestionSection(response));
-    //parse answers
-    for (int i = 0; i < serverResponse.answerCount(); i++) {
-      serverResponse.addAnswer(parseResourceRecord(response));
-    }
-    //parse Authorities
-    for (int i = 0; i < serverResponse.nameServerCount(); i++) {
-      serverResponse.addAuthority(parseResourceRecord(response));
-    }
-    //parse Additionals
-    for (int i = 0; i < serverResponse.additionalCount(); i++) {
-      serverResponse.addAdditional(parseResourceRecord(response));
-    }
+    try {
+      //parse ID
+      serverResponse.setPacketID(response.getChar());
+      //parse QR to RCODE field
+      char qRtoRCode = response.getChar();
+      serverResponse.setQR(parseQR(qRtoRCode));
+      serverResponse.setOpcode(parseOpcode(qRtoRCode));
+      serverResponse.setAuthoritative(parseAA(qRtoRCode));
+      serverResponse.setTruncated(parseTR(qRtoRCode));
+      serverResponse.setRecursionDesired(parseRD(qRtoRCode));
+      serverResponse.setRecursionAvailable(parseRA(qRtoRCode));
+      serverResponse.setRCode(parseRCode(qRtoRCode));
+      //parse QDCOUNT
+      serverResponse.setQuestionCount(response.getChar());
+      //parse ANCOUNT
+      serverResponse.setAnswerCount(response.getChar());
+      //parse NSCOUNT
+      serverResponse.setNameServerCount(response.getChar());
+      //parse ARCOUNT
+      serverResponse.setAdditionalCount(response.getChar());
+      //parse question
+      serverResponse.setQuestionSection(parseQuestionSection(response));
+      //parse answers
+      for (int i = 0; i < serverResponse.answerCount(); i++) {
+        serverResponse.addAnswer(parseResourceRecord(response));
+      }
+      //parse Authorities
+      for (int i = 0; i < serverResponse.nameServerCount(); i++) {
+        serverResponse.addAuthority(parseResourceRecord(response));
+      }
+      //parse Additionals
+      for (int i = 0; i < serverResponse.additionalCount(); i++) {
+        serverResponse.addAdditional(parseResourceRecord(response));
+      }
 
+    } catch (Exception e) {
+      throw new MalformedPacketException("Received a malformed packet.", e);
+    }
     return serverResponse;
   }
 

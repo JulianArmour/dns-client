@@ -9,6 +9,20 @@ import static org.junit.Assert.*;
 
 public class ServerPacketParserImplTest {
 
+  private String badPacket =
+      ("00 08 81 80 00 01 00 00 00 00 03 77 77 77" +
+          "06 6d 63 67 69 6c 6c 02 63")
+          .replace(" ", "");
+
+  @Test(expected = MalformedPacketException.class)
+  public void badPacket() throws MalformedPacketException {
+    final byte[] bytes= hexStringToByteArray(badPacket);
+    ByteBuffer packet = ByteBuffer.wrap(bytes);
+
+    ServerPacketParserImpl p = new ServerPacketParserImpl();
+    p.parseServerResponse(packet);
+  }
+
   private String testPacket1 =
     ("00 08 81 80 00 01 00 01 00 00 00 00 03 77 77 77" +
     "06 6d 63 67 69 6c 6c 02 63 61 00 00 01 00 01 c0" +
@@ -16,7 +30,7 @@ public class ServerPacketParserImplTest {
     .replace(" ", "");
 
   @Test
-  public void parseServerResponse() {
+  public void parseMcgillCaAQueryPacket() throws MalformedPacketException {
     final byte[] bytes= hexStringToByteArray(testPacket1);
     ByteBuffer packet = ByteBuffer.wrap(bytes);
 
@@ -51,7 +65,7 @@ public class ServerPacketParserImplTest {
         "132.216.177.160");
   }
 
-  private String testPacket2 =
+  private String facebookComNSQuery =
       ("00 05 81 80 00 01 00 04 00 00 00 08 08 66 61 63" +
       "65 62 6f 6f 6b 03 63 6f 6d 00 00 02 00 01 c0 0c" +
       "00 02 00 01 00 02 37 0c 00 07 01 64 02 6e 73 c0" +
@@ -73,8 +87,8 @@ public class ServerPacketParserImplTest {
       .replace(" ", "");
 
   @Test
-  public void parseTestPacket2() {
-    final byte[] bytes= hexStringToByteArray(testPacket2);
+  public void parseFacebookComNSQueryPacket() throws MalformedPacketException {
+    final byte[] bytes= hexStringToByteArray(facebookComNSQuery);
     ByteBuffer packet = ByteBuffer.wrap(bytes);
 
     ServerPacketParserImpl p = new ServerPacketParserImpl();
@@ -130,15 +144,19 @@ public class ServerPacketParserImplTest {
     assertAdditional(r, 3, "d.ns.facebook.com", QueryType.A,
         147325,4, "185.89.219.12");
     //additional 5
+    assertNull(r.getAdditional(4).getRData());
     assertEquals(16, r.getAdditional(4).getRDLength());
     assertEquals(QueryType.IGNORE, r.getAdditional(4).getType());
     //additional 6
+    assertNull(r.getAdditional(5).getRData());
     assertEquals(16, r.getAdditional(5).getRDLength());
     assertEquals(QueryType.IGNORE, r.getAdditional(5).getType());
     //additional 7
+    assertNull(r.getAdditional(6).getRData());
     assertEquals(16, r.getAdditional(6).getRDLength());
     assertEquals(QueryType.IGNORE, r.getAdditional(6).getType());
     //additional 8
+    assertNull(r.getAdditional(7).getRData());
     assertEquals(16, r.getAdditional(7).getRDLength());
     assertEquals(QueryType.IGNORE, r.getAdditional(7).getType());
 

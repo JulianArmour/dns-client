@@ -1,0 +1,159 @@
+0000   00 05 81 80 00 01 00 04 00 00 00 08 08 66 61 63   .............fac
+0010   65 62 6f 6f 6b 03 63 6f 6d 00 00 02 00 01 c0 0c   ebook.com.......
+0020   00 02 00 01 00 02 37 0c 00 07 01 64 02 6e 73 c0   ......7....d.ns.
+0030   0c c0 0c 00 02 00 01 00 02 37 0c 00 04 01 63 c0   .........7....c.
+0040   2c c0 0c 00 02 00 01 00 02 37 0c 00 04 01 61 c0   ,........7....a.
+0050   2c c0 0c 00 02 00 01 00 02 37 0c 00 04 01 62 c0   ,........7....b.
+0060   2c c0 4d 00 01 00 01 00 02 3f 7d 00 04 45 ab ef   ,.M......?}..E..
+0070   0c c0 5d 00 01 00 01 00 02 3f 7d 00 04 45 ab ff   ..]......?}..E..
+0080   0c c0 3d 00 01 00 01 00 02 3f 7d 00 04 b9 59 da   ..=......?}...Y.
+0090   0c c0 2a 00 01 00 01 00 02 3f 7d 00 04 b9 59 db   ..*......?}...Y.
+00a0   0c c0 4d 00 1c 00 01 00 02 92 83 00 10 2a 03 28   ..M..........*.(
+00b0   80 ff fe 00 0c fa ce b0 0c 00 00 00 35 c0 5d 00   ............5.].
+00c0   1c 00 01 00 02 92 83 00 10 2a 03 28 80 ff ff 00   .........*.(....
+00d0   0c fa ce b0 0c 00 00 00 35 c0 3d 00 1c 00 01 00   ........5.=.....
+00e0   02 92 83 00 10 2a 03 28 80 f1 fc 00 0c fa ce b0   .....*.(........
+00f0   0c 00 00 00 35 c0 2a 00 1c 00 01 00 02 92 83 00   ....5.*.........
+0100   10 2a 03 28 80 f1 fd 00 0c fa ce b0 0c 00 00 00   .*.(............
+0110   35                                                5
+
+
+
+00 05 81 80 00 01 00 04 00 00 00 08 08 66 61 63
+65 62 6f 6f 6b 03 63 6f 6d 00 00 02 00 01 c0 0c
+00 02 00 01 00 02 37 0c 00 07 01 64 02 6e 73 c0
+0c c0 0c 00 02 00 01 00 02 37 0c 00 04 01 63 c0
+2c c0 0c 00 02 00 01 00 02 37 0c 00 04 01 61 c0
+2c c0 0c 00 02 00 01 00 02 37 0c 00 04 01 62 c0
+2c c0 4d 00 01 00 01 00 02 3f 7d 00 04 45 ab ef
+0c c0 5d 00 01 00 01 00 02 3f 7d 00 04 45 ab ff
+0c c0 3d 00 01 00 01 00 02 3f 7d 00 04 b9 59 da
+0c c0 2a 00 01 00 01 00 02 3f 7d 00 04 b9 59 db
+0c c0 4d 00 1c 00 01 00 02 92 83 00 10 2a 03 28
+80 ff fe 00 0c fa ce b0 0c 00 00 00 35 c0 5d 00
+1c 00 01 00 02 92 83 00 10 2a 03 28 80 ff ff 00
+0c fa ce b0 0c 00 00 00 35 c0 3d 00 1c 00 01 00
+02 92 83 00 10 2a 03 28 80 f1 fc 00 0c fa ce b0
+0c 00 00 00 35 c0 2a 00 1c 00 01 00 02 92 83 00
+10 2a 03 28 80 f1 fd 00 0c fa ce b0 0c 00 00 00
+35
+
+
+
+
+Frame 10: 315 bytes on wire (2520 bits), 315 bytes captured (2520 bits) on interface \Device\NPF_{037E08B4-1235-45F0-A7BF-AE9DD45D748A}, id 0
+Ethernet II, Src: Cisco_ff:ff:44 (00:08:e3:ff:ff:44), Dst: RivetNet_90:37:03 (9c:b6:d0:90:37:03)
+Internet Protocol Version 4, Src: 132.206.44.21, Dst: 10.121.47.237
+User Datagram Protocol, Src Port: 53, Dst Port: 49683
+Domain Name System (response)
+    Transaction ID: 0x0005
+    Flags: 0x8180 Standard query response, No error
+        1... .... .... .... = Response: Message is a response
+        .000 0... .... .... = Opcode: Standard query (0)
+        .... .0.. .... .... = Authoritative: Server is not an authority for domain
+        .... ..0. .... .... = Truncated: Message is not truncated
+        .... ...1 .... .... = Recursion desired: Do query recursively
+        .... .... 1... .... = Recursion available: Server can do recursive queries
+        .... .... .0.. .... = Z: reserved (0)
+        .... .... ..0. .... = Answer authenticated: Answer/authority portion was not authenticated by the server
+        .... .... ...0 .... = Non-authenticated data: Unacceptable
+        .... .... .... 0000 = Reply code: No error (0)
+    Questions: 1
+    Answer RRs: 4
+    Authority RRs: 0
+    Additional RRs: 8
+    Queries
+        facebook.com: type NS, class IN
+            Name: facebook.com
+            [Name Length: 12]
+            [Label Count: 2]
+            Type: NS (authoritative Name Server) (2)
+            Class: IN (0x0001)
+    Answers
+        facebook.com: type NS, class IN, ns d.ns.facebook.com
+            Name: facebook.com
+            Type: NS (authoritative Name Server) (2)
+            Class: IN (0x0001)
+            Time to live: 145164 (1 day, 16 hours, 19 minutes, 24 seconds)
+            Data length: 7
+            Name Server: d.ns.facebook.com
+        facebook.com: type NS, class IN, ns c.ns.facebook.com
+            Name: facebook.com
+            Type: NS (authoritative Name Server) (2)
+            Class: IN (0x0001)
+            Time to live: 145164 (1 day, 16 hours, 19 minutes, 24 seconds)
+            Data length: 4
+            Name Server: c.ns.facebook.com
+        facebook.com: type NS, class IN, ns a.ns.facebook.com
+            Name: facebook.com
+            Type: NS (authoritative Name Server) (2)
+            Class: IN (0x0001)
+            Time to live: 145164 (1 day, 16 hours, 19 minutes, 24 seconds)
+            Data length: 4
+            Name Server: a.ns.facebook.com
+        facebook.com: type NS, class IN, ns b.ns.facebook.com
+            Name: facebook.com
+            Type: NS (authoritative Name Server) (2)
+            Class: IN (0x0001)
+            Time to live: 145164 (1 day, 16 hours, 19 minutes, 24 seconds)
+            Data length: 4
+            Name Server: b.ns.facebook.com
+    Additional records
+        a.ns.facebook.com: type A, class IN, addr 69.171.239.12
+            Name: a.ns.facebook.com
+            Type: A (Host Address) (1)
+            Class: IN (0x0001)
+            Time to live: 147325 (1 day, 16 hours, 55 minutes, 25 seconds)
+            Data length: 4
+            Address: 69.171.239.12
+        b.ns.facebook.com: type A, class IN, addr 69.171.255.12
+            Name: b.ns.facebook.com
+            Type: A (Host Address) (1)
+            Class: IN (0x0001)
+            Time to live: 147325 (1 day, 16 hours, 55 minutes, 25 seconds)
+            Data length: 4
+            Address: 69.171.255.12
+        c.ns.facebook.com: type A, class IN, addr 185.89.218.12
+            Name: c.ns.facebook.com
+            Type: A (Host Address) (1)
+            Class: IN (0x0001)
+            Time to live: 147325 (1 day, 16 hours, 55 minutes, 25 seconds)
+            Data length: 4
+            Address: 185.89.218.12
+        d.ns.facebook.com: type A, class IN, addr 185.89.219.12
+            Name: d.ns.facebook.com
+            Type: A (Host Address) (1)
+            Class: IN (0x0001)
+            Time to live: 147325 (1 day, 16 hours, 55 minutes, 25 seconds)
+            Data length: 4
+            Address: 185.89.219.12
+        a.ns.facebook.com: type AAAA, class IN, addr 2a03:2880:fffe:c:face:b00c:0:35
+            Name: a.ns.facebook.com
+            Type: AAAA (IPv6 Address) (28)
+            Class: IN (0x0001)
+            Time to live: 168579 (1 day, 22 hours, 49 minutes, 39 seconds)
+            Data length: 16
+            AAAA Address: 2a03:2880:fffe:c:face:b00c:0:35
+        b.ns.facebook.com: type AAAA, class IN, addr 2a03:2880:ffff:c:face:b00c:0:35
+            Name: b.ns.facebook.com
+            Type: AAAA (IPv6 Address) (28)
+            Class: IN (0x0001)
+            Time to live: 168579 (1 day, 22 hours, 49 minutes, 39 seconds)
+            Data length: 16
+            AAAA Address: 2a03:2880:ffff:c:face:b00c:0:35
+        c.ns.facebook.com: type AAAA, class IN, addr 2a03:2880:f1fc:c:face:b00c:0:35
+            Name: c.ns.facebook.com
+            Type: AAAA (IPv6 Address) (28)
+            Class: IN (0x0001)
+            Time to live: 168579 (1 day, 22 hours, 49 minutes, 39 seconds)
+            Data length: 16
+            AAAA Address: 2a03:2880:f1fc:c:face:b00c:0:35
+        d.ns.facebook.com: type AAAA, class IN, addr 2a03:2880:f1fd:c:face:b00c:0:35
+            Name: d.ns.facebook.com
+            Type: AAAA (IPv6 Address) (28)
+            Class: IN (0x0001)
+            Time to live: 168579 (1 day, 22 hours, 49 minutes, 39 seconds)
+            Data length: 16
+            AAAA Address: 2a03:2880:f1fd:c:face:b00c:0:35
+    [Request In: 9]
+    [Time: 0.004617000 seconds]

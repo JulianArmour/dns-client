@@ -8,5 +8,5 @@ public interface ServerPacketParser {
    * @param response a ByteBuffer that <b>must</b> be in read mode (flipped).
    * @return a {@link ServerResponse} that contains the data in the packet.
    */
-  ServerResponse parseServerResponse(ByteBuffer response);
+  ServerResponse parseServerResponse(ByteBuffer response) throws MalformedPacketException;
 }
