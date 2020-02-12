@@ -25,7 +25,7 @@ public class ServerPacketParserImpl implements ServerPacketParser {
       //parse ANCOUNT
       serverResponse.setAnswerCount(response.getChar());
       //parse NSCOUNT
-      serverResponse.setNameServerCount(response.getChar());
+      serverResponse.setAuthorityCount(response.getChar());
       //parse ARCOUNT
       serverResponse.setAdditionalCount(response.getChar());
       //parse question
@@ -35,7 +35,7 @@ public class ServerPacketParserImpl implements ServerPacketParser {
         serverResponse.addAnswer(parseResourceRecord(response));
       }
       //parse Authorities
-      for (int i = 0; i < serverResponse.nameServerCount(); i++) {
+      for (int i = 0; i < serverResponse.authorityCount(); i++) {
         serverResponse.addAuthority(parseResourceRecord(response));
       }
       //parse Additionals
@@ -50,7 +50,7 @@ public class ServerPacketParserImpl implements ServerPacketParser {
   }
 
   private ResourceRecord parseResourceRecord(ByteBuffer response) {
-    ResourceRecord rr = new ResourceRecord();
+    ResourceRecordImpl rr = new ResourceRecordImpl();
     rr.setName(parseQName(response));
     rr.setType(parseQType(response));
     rr.setClazz(parseQClass(response));
@@ -60,7 +60,7 @@ public class ServerPacketParserImpl implements ServerPacketParser {
     return rr;
   }
 
-  private void parseRData(ResourceRecord rr, ByteBuffer response) {
+  private void parseRData(ResourceRecordImpl rr, ByteBuffer response) {
     switch (rr.getType()) {
       case A:
         rr.setData(parseRDataAType(response));

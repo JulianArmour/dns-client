@@ -51,7 +51,7 @@ public class ServerPacketParserImplTest {
     //ARCOUNT
     assertEquals(1, r.answerCount());
     //NSCOUNT
-    assertEquals(0, r.nameServerCount());
+    assertEquals(0, r.authorityCount());
     //ARCOUNT
     assertEquals(0, r.additionalCount());
     //QNAME
@@ -109,7 +109,7 @@ public class ServerPacketParserImplTest {
     //header ARCOUNT
     assertEquals(4, r.answerCount());
     //header NSCOUNT
-    assertEquals(0, r.nameServerCount());
+    assertEquals(0, r.authorityCount());
     //header ARCOUNT
     assertEquals(8, r.additionalCount());
     //QNAME
@@ -204,7 +204,7 @@ public class ServerPacketParserImplTest {
     //header ARCOUNT
     assertEquals(5, r.answerCount());
     //header NSCOUNT
-    assertEquals(0, r.nameServerCount());
+    assertEquals(0, r.authorityCount());
     //header ARCOUNT
     assertEquals(6, r.additionalCount());
     //QNAME
@@ -288,7 +288,7 @@ public class ServerPacketParserImplTest {
     //header ARCOUNT
     assertEquals(1, r.answerCount());
     //header NSCOUNT
-    assertEquals(0, r.nameServerCount());
+    assertEquals(0, r.authorityCount());
     //header ARCOUNT
     assertEquals(0, r.additionalCount());
     //QNAME

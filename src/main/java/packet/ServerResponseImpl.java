@@ -11,11 +11,11 @@ public class ServerResponseImpl implements ServerResponse {
   private boolean isTruncated;
   private boolean isRecursionDesired;
   private boolean isRecursionAvailable;
-  private int rCode = -1;
+  private int rCode = 0;
   private int questionCount;
   private int answerCount;
-  private int nameServerCount = -1;
-  private int additionalCount = -1;
+  private int authorityCount = 0;
+  private int additionalCount = 0;
   private QuestionSection questionSection;
   private List<ResourceRecord> answers = new LinkedList<>();
   private List<ResourceRecord> authorities = new LinkedList<>();
@@ -72,8 +72,8 @@ public class ServerResponseImpl implements ServerResponse {
   }
 
   @Override
-  public int nameServerCount() {
-    return nameServerCount;
+  public int authorityCount() {
+    return authorityCount;
   }
 
   @Override
@@ -92,6 +92,11 @@ public class ServerResponseImpl implements ServerResponse {
   }
 
   @Override
+  public List<ResourceRecord> getAnswers() {
+    return answers;
+  }
+
+  @Override
   public ResourceRecord getAuthority(int authorityNumber) {
     return authorities.get(authorityNumber);
   }
@@ -99,6 +104,11 @@ public class ServerResponseImpl implements ServerResponse {
   @Override
   public ResourceRecord getAdditional(int additionalNumber) {
     return additionals.get(additionalNumber);
+  }
+
+  @Override
+  public List<ResourceRecord> getAdditionals() {
+    return this.additionals;
   }
 
   public void setPacketID(int packetID) {
@@ -141,8 +151,8 @@ public class ServerResponseImpl implements ServerResponse {
     this.answerCount = answerCount;
   }
 
-  public void setNameServerCount(int nameServerCount) {
-    this.nameServerCount = nameServerCount;
+  public void setAuthorityCount(int authorityCount) {
+    this.authorityCount = authorityCount;
   }
 
   public void setAdditionalCount(int additionalCount) {
