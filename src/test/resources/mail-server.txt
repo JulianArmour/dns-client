@@ -1,0 +1,47 @@
+0000   00 05 81 80 00 01 00 05 00 00 00 06 06 67 6f 6f   .............goo
+0010   67 6c 65 03 63 6f 6d 00 00 0f 00 01 c0 0c 00 0f   gle.com.........
+0020   00 01 00 00 00 92 00 11 00 14 04 61 6c 74 31 05   ...........alt1.
+0030   61 73 70 6d 78 01 6c c0 0c c0 0c 00 0f 00 01 00   aspmx.l.........
+0040   00 00 92 00 09 00 1e 04 61 6c 74 32 c0 2f c0 0c   ........alt2./..
+0050   00 0f 00 01 00 00 00 92 00 09 00 32 04 61 6c 74   ...........2.alt
+0060   34 c0 2f c0 0c 00 0f 00 01 00 00 00 92 00 09 00   4./.............
+0070   28 04 61 6c 74 33 c0 2f c0 0c 00 0f 00 01 00 00   (.alt3./........
+0080   00 92 00 04 00 0a c0 2f c0 2f 00 01 00 01 00 00   ......././......
+0090   00 9b 00 04 ad c2 cd 1a c0 2a 00 01 00 01 00 00   .........*......
+00a0   00 18 00 04 40 e9 ba 1b c0 2a 00 1c 00 01 00 00   ....@....*......
+00b0   00 5d 00 10 28 00 03 f0 40 03 0c 00 00 00 00 00   .]..(...@.......
+00c0   00 00 00 1b c0 47 00 01 00 01 00 00 00 af 00 04   .....G..........
+00d0   d1 55 ca 1a c0 5c 00 01 00 01 00 00 00 17 00 04   .U...\..........
+00e0   ac d9 da 1a c0 71 00 1c 00 01 00 00 00 05 00 10   .....q..........
+00f0   2a 00 14 50 40 0c 0c 03 00 00 00 00 00 00 00 1b   *..P@...........
+
+
+
+Frame 16: 298 bytes on wire (2384 bits), 298 bytes captured (2384 bits) on interface \Device\NPF_{037E08B4-1235-45F0-A7BF-AE9DD45D748A}, id 0
+Ethernet II, Src: Netgear_1d:ac:c7 (e4:f4:c6:1d:ac:c7), Dst: RivetNet_90:37:03 (9c:b6:d0:90:37:03)
+Internet Protocol Version 4, Src: 192.168.1.1, Dst: 192.168.1.6
+User Datagram Protocol, Src Port: 53, Dst Port: 59411
+Domain Name System (response)
+    Transaction ID: 0x0005
+    Flags: 0x8180 Standard query response, No error
+    Questions: 1
+    Answer RRs: 5
+    Authority RRs: 0
+    Additional RRs: 6
+    Queries
+        google.com: type MX, class IN
+    Answers
+        google.com: type MX, class IN, preference 20, mx alt1.aspmx.l.google.com
+        google.com: type MX, class IN, preference 30, mx alt2.aspmx.l.google.com
+        google.com: type MX, class IN, preference 50, mx alt4.aspmx.l.google.com
+        google.com: type MX, class IN, preference 40, mx alt3.aspmx.l.google.com
+        google.com: type MX, class IN, preference 10, mx aspmx.l.google.com
+    Additional records
+        aspmx.l.google.com: type A, class IN, addr 173.194.205.26
+        alt1.aspmx.l.google.com: type A, class IN, addr 64.233.186.27
+        alt1.aspmx.l.google.com: type AAAA, class IN, addr 2800:3f0:4003:c00::1b
+        alt2.aspmx.l.google.com: type A, class IN, addr 209.85.202.26
+        alt4.aspmx.l.google.com: type A, class IN, addr 172.217.218.26
+        alt3.aspmx.l.google.com: type AAAA, class IN, addr 2a00:1450:400c:c03::1b
+    [Request In: 15]
+    [Time: 0.013444000 seconds]
