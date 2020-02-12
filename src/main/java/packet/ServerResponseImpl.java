@@ -92,6 +92,11 @@ public class ServerResponseImpl implements ServerResponse {
   }
 
   @Override
+  public List<ResourceRecord> getAnswers() {
+    return answers;
+  }
+
+  @Override
   public ResourceRecord getAuthority(int authorityNumber) {
     return authorities.get(authorityNumber);
   }

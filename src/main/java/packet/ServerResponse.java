@@ -1,5 +1,7 @@
 package packet;
 
+import java.util.List;
+
 /**
  * A container for all the data the server sends back as a response to a query.
  */
@@ -75,6 +77,11 @@ public interface ServerResponse {
    * @return the (answerNumber+1)'th answer resource record.
    */
   ResourceRecord getAnswer(int answerNumber);
+
+  /**
+   * @return all the answers.
+   */
+  List<ResourceRecord> getAnswers();
 
   /**
    * @param authorityNumber a number within [0, NSCOUNT)
