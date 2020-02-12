@@ -257,6 +257,52 @@ public class ServerPacketParserImplTest {
     assertEquals(QueryType.IGNORE, r.getAdditional(2).getType());
   }
 
+  String cnameQuery =
+      ("00 14 81 80 00 01 00 01 00 00 00 00 0a 6d 79 63" +
+      "6f 75 72 73 65 73 32 06 6d 63 67 69 6c 6c 02 63" +
+      "61 00 00 05 00 01 c0 0c 00 05 00 01 00 00 07 e2" +
+      "00 18 06 6d 63 67 69 6c 6c 0b 62 72 69 67 68 74" +
+      "73 70 61 63 65 03 63 6f 6d 00")
+      .replace(" ", "");
+
+  @Test
+  public void parseMyCourses2ComCNAMEQueryPacket() throws MalformedPacketException {
+    final byte[] bytes= hexStringToByteArray(cnameQuery);
+    ByteBuffer packet = ByteBuffer.wrap(bytes);
+
+    ServerPacketParserImpl p = new ServerPacketParserImpl();
+    ServerResponse r = p.parseServerResponse(packet);
+
+    //header ID field
+    assertEquals(20, r.ID());
+    //header QR to RCODE
+    assertEquals(PacketType.Response, r.QR());
+    assertEquals(0, r.Opcode());
+    assertFalse(r.authoritative());
+    assertFalse(r.truncated());
+    assertTrue(r.recursionDesired());
+    assertTrue(r.recursionAvailable());
+    assertEquals(0, r.rCode());
+    //header QDCOUNT
+    assertEquals(1, r.questionCount());
+    //header ARCOUNT
+    assertEquals(1, r.answerCount());
+    //header NSCOUNT
+    assertEquals(0, r.nameServerCount());
+    //header ARCOUNT
+    assertEquals(0, r.additionalCount());
+    //QNAME
+    assertEquals("mycourses2.mcgill.ca", r.getQuestionSection().getqName());
+    //QTYPE
+    assertEquals(QueryType.CNAME, r.getQuestionSection().getqType());
+    //QCLASS
+    assertEquals(1, r.getQuestionSection().getqClass());
+
+    //answer
+    assertAnswer(r, 0, "mycourses2.mcgill.ca", QueryType.CNAME,
+        2018, 24, "mcgill.brightspace.com");
+  }
+
   private void assertAdditional(ServerResponse r, int additionalNumber, String name,
                                 QueryType type,int TTL, int dataLength, String data) {
     //additional NAME

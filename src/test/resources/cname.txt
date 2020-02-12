@@ -1,0 +1,54 @@
+00 14 81 80 00 01 00 01 00 00 00 00 0a 6d 79 63
+6f 75 72 73 65 73 32 06 6d 63 67 69 6c 6c 02 63
+61 00 00 05 00 01 c0 0c 00 05 00 01 00 00 07 e2
+00 18 06 6d 63 67 69 6c 6c 0b 62 72 69 67 68 74
+73 70 61 63 65 03 63 6f 6d 00
+
+
+0000   00 14 81 80 00 01 00 01 00 00 00 00 0a 6d 79 63   .............myc
+0010   6f 75 72 73 65 73 32 06 6d 63 67 69 6c 6c 02 63   ourses2.mcgill.c
+0020   61 00 00 05 00 01 c0 0c 00 05 00 01 00 00 07 e2   a...............
+0030   00 18 06 6d 63 67 69 6c 6c 0b 62 72 69 67 68 74   ...mcgill.bright
+0040   73 70 61 63 65 03 63 6f 6d 00                     space.com.
+
+
+
+
+Frame 16: 116 bytes on wire (928 bits), 116 bytes captured (928 bits) on interface \Device\NPF_{037E08B4-1235-45F0-A7BF-AE9DD45D748A}, id 0
+Ethernet II, Src: Netgear_1d:ac:c7 (e4:f4:c6:1d:ac:c7), Dst: RivetNet_90:37:03 (9c:b6:d0:90:37:03)
+Internet Protocol Version 4, Src: 192.168.1.1, Dst: 192.168.1.6
+User Datagram Protocol, Src Port: 53, Dst Port: 53679
+Domain Name System (response)
+    Transaction ID: 0x0014
+    Flags: 0x8180 Standard query response, No error
+        1... .... .... .... = Response: Message is a response
+        .000 0... .... .... = Opcode: Standard query (0)
+        .... .0.. .... .... = Authoritative: Server is not an authority for domain
+        .... ..0. .... .... = Truncated: Message is not truncated
+        .... ...1 .... .... = Recursion desired: Do query recursively
+        .... .... 1... .... = Recursion available: Server can do recursive queries
+        .... .... .0.. .... = Z: reserved (0)
+        .... .... ..0. .... = Answer authenticated: Answer/authority portion was not authenticated by the server
+        .... .... ...0 .... = Non-authenticated data: Unacceptable
+        .... .... .... 0000 = Reply code: No error (0)
+    Questions: 1
+    Answer RRs: 1
+    Authority RRs: 0
+    Additional RRs: 0
+    Queries
+        mycourses2.mcgill.ca: type CNAME, class IN
+            Name: mycourses2.mcgill.ca
+            [Name Length: 20]
+            [Label Count: 3]
+            Type: CNAME (Canonical NAME for an alias) (5)
+            Class: IN (0x0001)
+    Answers
+        mycourses2.mcgill.ca: type CNAME, class IN, cname mcgill.brightspace.com
+            Name: mycourses2.mcgill.ca
+            Type: CNAME (Canonical NAME for an alias) (5)
+            Class: IN (0x0001)
+            Time to live: 2018 (33 minutes, 38 seconds)
+            Data length: 24
+            CNAME: mcgill.brightspace.com
+    [Request In: 15]
+    [Time: 0.015346000 seconds]
