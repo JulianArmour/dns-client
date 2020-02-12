@@ -1,0 +1,47 @@
+00 08 81 80 00 01 00 01 00 00 00 00 03 77 77 77
+06 6d 63 67 69 6c 6c 02 63 61 00 00 01 00 01 c0
+0c 00 01 00 01 00 00 02 a0 00 04 84 d8 b1 a0
+
+0000   00 08 81 80 00 01 00 01 00 00 00 00 03 77 77 77   .............www
+0010   06 6d 63 67 69 6c 6c 02 63 61 00 00 01 00 01 c0   .mcgill.ca......
+0020   0c 00 01 00 01 00 00 02 a0 00 04 84 d8 b1 a0      ...............
+
+
+Frame 19: 89 bytes on wire (712 bits), 89 bytes captured (712 bits) on interface \Device\NPF_{037E08B4-1235-45F0-A7BF-AE9DD45D748A}, id 0
+Ethernet II, Src: Netgear_1d:ac:c7 (e4:f4:c6:1d:ac:c7), Dst: RivetNet_90:37:03 (9c:b6:d0:90:37:03)
+Internet Protocol Version 4, Src: 8.8.8.8, Dst: 192.168.1.6
+User Datagram Protocol, Src Port: 53, Dst Port: 58087
+Domain Name System (response)
+    Transaction ID: 0x0008
+    Flags: 0x8180 Standard query response, No error
+        1... .... .... .... = Response: Message is a response
+        .000 0... .... .... = Opcode: Standard query (0)
+        .... .0.. .... .... = Authoritative: Server is not an authority for domain
+        .... ..0. .... .... = Truncated: Message is not truncated
+        .... ...1 .... .... = Recursion desired: Do query recursively
+        .... .... 1... .... = Recursion available: Server can do recursive queries
+        .... .... .0.. .... = Z: reserved (0)
+        .... .... ..0. .... = Answer authenticated: Answer/authority portion was not authenticated by the server
+        .... .... ...0 .... = Non-authenticated data: Unacceptable
+        .... .... .... 0000 = Reply code: No error (0)
+    Questions: 1
+    Answer RRs: 1
+    Authority RRs: 0
+    Additional RRs: 0
+    Queries
+        www.mcgill.ca: type A, class IN
+            Name: www.mcgill.ca
+            [Name Length: 13]
+            [Label Count: 3]
+            Type: A (Host Address) (1)
+            Class: IN (0x0001)
+    Answers
+        www.mcgill.ca: type A, class IN, addr 132.216.177.160
+            Name: www.mcgill.ca
+            Type: A (Host Address) (1)
+            Class: IN (0x0001)
+            Time to live: 672 (11 minutes, 12 seconds)
+            Data length: 4
+            Address: 132.216.177.160
+    [Request In: 18]
+    [Time: 0.020289000 seconds]
