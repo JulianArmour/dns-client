@@ -60,7 +60,7 @@ public interface ServerResponse {
   /**
    * @return the NSCOUNT field.
    */
-  int nameServerCount();
+  int authorityCount();
 
   /**
    * @return the ARCOUNT field.
@@ -94,4 +94,9 @@ public interface ServerResponse {
    * @return the (additionalNumber+1)'th additional resource record.
    */
   ResourceRecord getAdditional(int additionalNumber);
+
+  /**
+   * @return all the additionals.
+   */
+  List<ResourceRecord> getAdditionals();
 }
