@@ -56,11 +56,11 @@ public class ResourceRecord {
    * the this returns the EXCHANGE field. PREFERENCE can be accessed via
    * getPreference().
    */
-  public String getRData() {
+  public String getData() {
     return rData;
   }
 
-  public void setRData(String rData) {
+  public void setData(String rData) {
     this.rData = rData;
   }
 

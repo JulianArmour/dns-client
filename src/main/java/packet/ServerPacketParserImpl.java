@@ -63,15 +63,15 @@ public class ServerPacketParserImpl implements ServerPacketParser {
   private void parseRData(ResourceRecord rr, ByteBuffer response) {
     switch (rr.getType()) {
       case A:
-        rr.setRData(parseRDataAType(response));
+        rr.setData(parseRDataAType(response));
         break;
       case NS:
       case CNAME:
-        rr.setRData(parseQName(response));
+        rr.setData(parseQName(response));
         break;
       case MX:
         rr.setPreference(response.getChar());
-        rr.setRData(parseQName(response));
+        rr.setData(parseQName(response));
         break;
       case IGNORE:
         //skips parsing

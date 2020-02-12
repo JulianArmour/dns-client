@@ -23,7 +23,7 @@ public class ServerPacketParserImplTest {
     p.parseServerResponse(packet);
   }
 
-  private String testPacket1 =
+  private String mcGillCa_TypeA_Query =
     ("00 08 81 80 00 01 00 01 00 00 00 00 03 77 77 77" +
     "06 6d 63 67 69 6c 6c 02 63 61 00 00 01 00 01 c0" +
     "0c 00 01 00 01 00 00 02 a0 00 04 84 d8 b1 a0")
@@ -31,7 +31,7 @@ public class ServerPacketParserImplTest {
 
   @Test
   public void parseMcgillCaAQueryPacket() throws MalformedPacketException {
-    final byte[] bytes= hexStringToByteArray(testPacket1);
+    final byte[] bytes= hexStringToByteArray(mcGillCa_TypeA_Query);
     ByteBuffer packet = ByteBuffer.wrap(bytes);
 
     ServerPacketParserImpl p = new ServerPacketParserImpl();
@@ -65,7 +65,7 @@ public class ServerPacketParserImplTest {
         "132.216.177.160");
   }
 
-  private String facebookComNSQuery =
+  private String facebookCom_TypeNS_Query =
       ("00 05 81 80 00 01 00 04 00 00 00 08 08 66 61 63" +
       "65 62 6f 6f 6b 03 63 6f 6d 00 00 02 00 01 c0 0c" +
       "00 02 00 01 00 02 37 0c 00 07 01 64 02 6e 73 c0" +
@@ -88,11 +88,12 @@ public class ServerPacketParserImplTest {
 
   @Test
   public void parseFacebookComNSQueryPacket() throws MalformedPacketException {
-    final byte[] bytes= hexStringToByteArray(facebookComNSQuery);
+    final byte[] bytes= hexStringToByteArray(facebookCom_TypeNS_Query);
     ByteBuffer packet = ByteBuffer.wrap(bytes);
 
     ServerPacketParserImpl p = new ServerPacketParserImpl();
     ServerResponse r = p.parseServerResponse(packet);
+
     //header ID field
     assertEquals(5, r.ID());
     //header QR to RCODE
@@ -144,22 +145,116 @@ public class ServerPacketParserImplTest {
     assertAdditional(r, 3, "d.ns.facebook.com", QueryType.A,
         147325,4, "185.89.219.12");
     //additional 5
-    assertNull(r.getAdditional(4).getRData());
+    assertNull(r.getAdditional(4).getData());
     assertEquals(16, r.getAdditional(4).getRDLength());
     assertEquals(QueryType.IGNORE, r.getAdditional(4).getType());
     //additional 6
-    assertNull(r.getAdditional(5).getRData());
+    assertNull(r.getAdditional(5).getData());
     assertEquals(16, r.getAdditional(5).getRDLength());
     assertEquals(QueryType.IGNORE, r.getAdditional(5).getType());
     //additional 7
-    assertNull(r.getAdditional(6).getRData());
+    assertNull(r.getAdditional(6).getData());
     assertEquals(16, r.getAdditional(6).getRDLength());
     assertEquals(QueryType.IGNORE, r.getAdditional(6).getType());
     //additional 8
-    assertNull(r.getAdditional(7).getRData());
+    assertNull(r.getAdditional(7).getData());
     assertEquals(16, r.getAdditional(7).getRDLength());
     assertEquals(QueryType.IGNORE, r.getAdditional(7).getType());
+  }
 
+  private String googleCom_TypeMX_Query =
+      ("00 05 81 80 00 01 00 05 00 00 00 06 06 67 6f 6f" +
+      "67 6c 65 03 63 6f 6d 00 00 0f 00 01 c0 0c 00 0f" +
+      "00 01 00 00 00 92 00 11 00 14 04 61 6c 74 31 05" +
+      "61 73 70 6d 78 01 6c c0 0c c0 0c 00 0f 00 01 00" +
+      "00 00 92 00 09 00 1e 04 61 6c 74 32 c0 2f c0 0c" +
+      "00 0f 00 01 00 00 00 92 00 09 00 32 04 61 6c 74" +
+      "34 c0 2f c0 0c 00 0f 00 01 00 00 00 92 00 09 00" +
+      "28 04 61 6c 74 33 c0 2f c0 0c 00 0f 00 01 00 00" +
+      "00 92 00 04 00 0a c0 2f c0 2f 00 01 00 01 00 00" +
+      "00 9b 00 04 ad c2 cd 1a c0 2a 00 01 00 01 00 00" +
+      "00 18 00 04 40 e9 ba 1b c0 2a 00 1c 00 01 00 00" +
+      "00 5d 00 10 28 00 03 f0 40 03 0c 00 00 00 00 00" +
+      "00 00 00 1b c0 47 00 01 00 01 00 00 00 af 00 04" +
+      "d1 55 ca 1a c0 5c 00 01 00 01 00 00 00 17 00 04" +
+      "ac d9 da 1a c0 71 00 1c 00 01 00 00 00 05 00 10" +
+      "2a 00 14 50 40 0c 0c 03 00 00 00 00 00 00 00 1b")
+      .replace(" ", "");
+
+  @Test
+  public void mailServerGoogleCom() throws MalformedPacketException {
+    final byte[] bytes= hexStringToByteArray(googleCom_TypeMX_Query);
+    ByteBuffer packet = ByteBuffer.wrap(bytes);
+
+    ServerPacketParserImpl p = new ServerPacketParserImpl();
+    ServerResponse r = p.parseServerResponse(packet);
+
+    //header ID field
+    assertEquals(5, r.ID());
+    //header QR to RCODE
+    assertEquals(PacketType.Response, r.QR());
+    assertEquals(0, r.Opcode());
+    assertFalse(r.authoritative());
+    assertFalse(r.truncated());
+    assertTrue(r.recursionDesired());
+    assertTrue(r.recursionAvailable());
+    assertEquals(0, r.rCode());
+    //header QDCOUNT
+    assertEquals(1, r.questionCount());
+    //header ARCOUNT
+    assertEquals(5, r.answerCount());
+    //header NSCOUNT
+    assertEquals(0, r.nameServerCount());
+    //header ARCOUNT
+    assertEquals(6, r.additionalCount());
+    //QNAME
+    assertEquals("google.com", r.getQuestionSection().getqName());
+    //QTYPE
+    assertEquals(QueryType.MX, r.getQuestionSection().getqType());
+    //QCLASS
+    assertEquals(1, r.getQuestionSection().getqClass());
+
+    //answer 1
+    assertAnswer(r, 0, "google.com", QueryType.MX, 146,
+        17, "alt1.aspmx.l.google.com");
+    assertEquals(20, r.getAnswer(0).getPreference());
+    //answer 2
+    assertAnswer(r, 1, "google.com", QueryType.MX, 146,
+        9, "alt2.aspmx.l.google.com");
+    assertEquals(30, r.getAnswer(1).getPreference());
+    //answer 3
+    assertAnswer(r, 2, "google.com", QueryType.MX, 146,
+        9, "alt4.aspmx.l.google.com");
+    assertEquals(50, r.getAnswer(2).getPreference());
+    //answer 4
+    assertAnswer(r, 3, "google.com", QueryType.MX, 146,
+        9, "alt3.aspmx.l.google.com");
+    assertEquals(40, r.getAnswer(3).getPreference());
+    //answer 5
+    assertAnswer(r, 4, "google.com", QueryType.MX, 146,
+        4, "aspmx.l.google.com");
+    assertEquals(10, r.getAnswer(4).getPreference());
+
+    //additional 1
+    assertAdditional(r, 0, "aspmx.l.google.com",
+        QueryType.A,155, 4, "173.194.205.26");
+    //additional 2
+    assertAdditional(r, 1, "alt1.aspmx.l.google.com",
+        QueryType.A,24, 4, "64.233.186.27");
+    //additional 3
+    assertNull(r.getAdditional(2).getData());
+    assertEquals(16, r.getAdditional(2).getRDLength());
+    assertEquals(QueryType.IGNORE, r.getAdditional(2).getType());
+    //additional 4
+    assertAdditional(r, 3, "alt2.aspmx.l.google.com",
+        QueryType.A,175, 4, "209.85.202.26");
+    //additional 5
+    assertAdditional(r, 4, "alt4.aspmx.l.google.com",
+        QueryType.A,23, 4, "172.217.218.26");
+    //additional 6
+    assertNull(r.getAdditional(2).getData());
+    assertEquals(16, r.getAdditional(2).getRDLength());
+    assertEquals(QueryType.IGNORE, r.getAdditional(2).getType());
   }
 
   private void assertAdditional(ServerResponse r, int additionalNumber, String name,
@@ -175,7 +270,7 @@ public class ServerPacketParserImplTest {
     //additional RDLENGTH
     assertEquals(dataLength, r.getAdditional(additionalNumber).getRDLength());
     //additional RDATA
-    assertEquals(data, r.getAdditional(additionalNumber).getRData());
+    assertEquals(data, r.getAdditional(additionalNumber).getData());
   }
 
   private void assertAnswer(ServerResponse r, int answerNumber, String name,
@@ -191,7 +286,7 @@ public class ServerPacketParserImplTest {
     //answer RDLENGTH
     assertEquals(dataLength, r.getAnswer(answerNumber).getRDLength());
     //answer RDATA
-    assertEquals(data, r.getAnswer(answerNumber).getRData());
+    assertEquals(data, r.getAnswer(answerNumber).getData());
   }
 
 
