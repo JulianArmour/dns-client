@@ -65,9 +65,17 @@ public class DnsClient {
           //HERE I LEAVE FOR YOU TO CALL YOUR RESPONSE FUNCITON
 
 
-	  } catch (Exception e) {
-		  e.printStackTrace();
-	  }
+	  } catch (SocketException e) {
+            System.out.println("ERROR\tCould not create socket");
+        } catch (UnknownHostException e ) {
+            System.out.println("ERROR\tUnknown host");
+        } catch (SocketTimeoutException e) {
+            System.out.println("ERROR\tSocket Timeout");
+            System.out.println("Reattempting request...");
+            makeRequest(++retries);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 	  
   }
   
