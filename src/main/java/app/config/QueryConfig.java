@@ -1,7 +1,7 @@
 package app.config;
 
 public class QueryConfig implements QueryConfiguration {
-  private int timeout = 5;
+  private int timeout = 5000;
   private int maxRetries = 3;
   private int dnsPort = 53;
   private QueryType type = QueryType.A;
@@ -38,8 +38,11 @@ public class QueryConfig implements QueryConfiguration {
     return domain;
   }
 
+  /**
+   * @param timeout desired receive timeout, in seconds.
+   */
   public void setTimeout(int timeout) {
-    this.timeout = timeout;
+    this.timeout = timeout * 1000;
   }
 
   public void setMaxRetries(int maxRetries) {

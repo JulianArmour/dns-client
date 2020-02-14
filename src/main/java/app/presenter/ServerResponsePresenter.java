@@ -55,38 +55,36 @@ public class ServerResponsePresenter {
   private void printAnswerResourceRecord(ResourceRecord record) {
     switch (record.getType()) {
       case MX:
-        printer.printf("MX \t %s \t %s \t %d \t %s",
+        printer.printf("MX \t %s \t %s \t %d \t %s\r\n",
             record.getData(), record.getPreference(), record.getTTL(),
             authoritativeToString(serverResponse));
         break;
       case A:
-        printer.printf("IP \t %s \t %d \t %s",
+        printer.printf("IP \t %s \t %d \t %s\r\n",
             record.getData(), record.getTTL(),
             authoritativeToString(serverResponse));
         break;
       case NS:
-        printer.printf("NS \t %s \t %d \t %s",
+        printer.printf("NS \t %s \t %d \t %s\r\n",
             record.getData(), record.getTTL(),
             authoritativeToString(serverResponse));
         break;
       case CNAME:
-        printer.printf("CNAME \t %s \t %d \t %s",
+        printer.printf("CNAME \t %s \t %d \t %s\r\n",
             record.getData(), record.getTTL(),
             authoritativeToString(serverResponse));
         break;
     }
-    printer.println();
   }
 
   private void printAdditionalResourceRecord(ResourceRecord record) {
     if (record.getType() == QueryType.A) {
-      printer.printf("%s \t IP \t %s \t %d \t %s",
+      printer.printf("%s \t IP \t %s \t %d \t %s\r\n",
           record.getName(), record.getData(), record.getTTL(),
           authoritativeToString(serverResponse));
     } else {
       printAnswerResourceRecord(record);
     }
-    printer.println();
   }
 
   private static String authoritativeToString(ServerResponse serverResponse) {

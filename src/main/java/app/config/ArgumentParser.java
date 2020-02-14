@@ -1,8 +1,5 @@
 package app.config;
 
-import app.config.QueryConfig;
-import app.config.QueryType;
-
 public class ArgumentParser {
 
   public static QueryConfig parseArgs(String[] args) {
